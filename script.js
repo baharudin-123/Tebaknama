@@ -1,7 +1,7 @@
 let tries = 0;
 
 // GANTI JAWABAN BENER DI SINI
-const correctAnswers = ["CULUNGG", "Ayra", "si CULUNGG"];
+const correctAnswers = ["culung", "ayra"];
 
 const trollMessages = [
   "Salah wlee 😭 coba lagi",
