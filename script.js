@@ -5,10 +5,6 @@ const correctAnswers = ["culung", "ayra"];
 
 const trollMessages = [
   "Salah wlee 😭 coba lagi",
-  "Makhluknya kecewa 👀",
-  "Hampir... tapi ngaco 😭",
-  "Itu siapa kecoa kali",
-  "Otaknya di benerin lagii 😭"
 ];
 
 function checkAnswer() {
@@ -20,7 +16,7 @@ function checkAnswer() {
 
   if (correctAnswers.includes(input)) {
     document.getElementById("message").innerText =
-      "🎉 SELAMAT! Jawaban benar ! Anda berhak tidak mendapatkan apa-apa yeyy 😂";
+      "🎉 SELAMAT! Jawaban benar ! Anda berhak mendapatkan hadiah 😂 \n scroll keatas untuk melihat hadiahhnya !";
 
     document.getElementById("result").style.display = "block";
   } else {
