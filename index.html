@@ -13,21 +13,20 @@
 
   <!-- START SCREEN -->
   <div id="startScreen">
-    input {
-  width: 100%;
-  padding: 13px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
+    <div id="startScreen">
+  <h1>🔐 Open The Secret Photo</h1>
+  <p>Masukkan password untuk masuk ke game 😭🔥</p>
 
-#passwordMessage {
-  margin-top: 10px;
-  font-weight: bold;
-  color: red;
-}
+  <input
+    type="password"
+    id="passwordInput"
+    placeholder="Masukkan password..."
+  />
+
+  <button onclick="checkPassword()">Masuk 🚀</button>
+
+  <p id="passwordMessage"></p>
+</div>
   </div>
 
   <!-- GAME SCREEN -->
