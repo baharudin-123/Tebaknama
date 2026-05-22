@@ -1,33 +1,49 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tebak Nama Kegiatan !! 😭</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tebak Pose Lucu 😭</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <div class="container">
-    <h1>🤨 Apakah Nama Kegiatan Iniii?</h1>
 
-    <div class="clues">
-      <p>🧩 Orang ini berdiri menghadap cermin.</p>
-      <p>🧩 Kadang berpose </p>
-      <p>🧩 Mereka melihat ke kamera </p>
-      <p>🧩 Sambil memegang HP, dan Memfoto dirinya😭</p>
-      <p> (jawab menggunakan huruf kecil) </p>
+    <!-- Start -->
+    <div id="startScreen">
+      <h1>🤨 Tebak Pose Lucu</h1>
+      <p>Tebak pose sesuai clue. Kalau bener, foto muncul 😭🔥</p>
+      <button onclick="startGame()">Mulai Game</button>
     </div>
 
-    <input type="text" id="answer" placeholder="Masukin jawaban...">
-    <button onclick="checkAnswer()">Tebak jawaban 😭</button>
+    <!-- Progress -->
+    <div id="gameScreen" style="display:none;">
+      <h2 id="levelText">Level 1/2</h2>
+      <div class="progress-bar">
+        <div id="progress"></div>
+      </div>
 
-    <p id="message"></p>
-    <p id="tries">Percobaan: 0</p>
+      <div id="clues"></div>
 
-    <div id="result" style="display:none;">
-      <h2>🎉 Benarr! Ini Dia Contohnyaa 😂</h2>
-      <img id="friendPhoto" src="fotoay.jpg.jpeg" alt="Ayra">
+      <div id="options"></div>
+
+      <p id="message"></p>
+
+      <div id="result" style="display:none;">
+        <img id="photo" src="" alt="Foto">
+        <br>
+        <button id="nextBtn" onclick="nextLevel()">Lanjut 😈</button>
+      </div>
     </div>
+
+    <!-- Finish -->
+    <div id="finishScreen" style="display:none;">
+      <h1>🎉 Selesai</h1>
+      <p>Semua pose berhasil ditebak 😭🔥</p>
+      <p id="scoreText"></p>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
