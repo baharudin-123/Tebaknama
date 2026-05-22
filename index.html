@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tebak Pose Lucu 😭</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes Perasaan & Tebak Pose 😭🔥</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- Start -->
-    <div id="startScreen">
-      <h1>🤨 Tebak Pose Lucu</h1>
-      <p>Tebak pose sesuai clue. Kalau bener, foto muncul 😭🔥</p>
-      <button onclick="startGame()">Mulai Game</button>
-    </div>
-
-    <!-- Progress -->
-    <div id="gameScreen" style="display:none;">
-      <h2 id="levelText">Level 1/2</h2>
-      <div class="progress-bar">
-        <div id="progress"></div>
-      </div>
-
-      <div id="clues"></div>
-
-      <div id="options"></div>
-
-      <p id="message"></p>
-
-      <div id="result" style="display:none;">
-        <img id="photo" src="fotoay.jpg.jpeg" alt="Foto">
-        <br>
-        <button id="nextBtn" onclick="nextLevel()">Lanjut 😈</button>
-      </div>
-    </div>
-
-    <!-- Finish -->
-    <div id="finishScreen" style="display:none;">
-      <h1>🎉 Selesai</h1>
-      <p>Semua pose berhasil ditebak 😭🔥</p>
-      <p id="scoreText"></p>
-    </div>
-
+  <!-- START -->
+  <div id="startScreen">
+    <h1>🤨 Sebelum Main...</h1>
+    <p>Jawab jujur dulu ya 😭</p>
+    <button onclick="startQuiz()">Mulai</button>
   </div>
 
-  <script src="script.js"></script>
+  <!-- QUIZ -->
+  <div id="quizScreen" style="display:none;">
+    <h2 id="questionNumber"></h2>
+    <p id="questionText"></p>
+    <div id="options"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resultScreen" style="display:none;">
+    <h1>🧠 Hasil Tes</h1>
+    <p id="resultText"></p>
+    <small>Ini cuma game fun 😭</small>
+    <br><br>
+    <button onclick="startGame()">Lanjut ke Tebak Pose 😈</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="gameScreen" style="display:none;">
+    <h2 id="levelText"></h2>
+
+    <div class="progress-bar">
+      <div id="progress"></div>
+    </div>
+
+    <div id="clues"></div>
+    <div id="gameOptions"></div>
+
+    <p id="message"></p>
+
+    <div id="photoBox" style="display:none;">
+      <img id="photo" src="" alt="foto">
+      <br>
+      <button id="nextBtn" onclick="nextLevel()">Lanjut 😈</button>
+    </div>
+  </div>
+
+  <!-- FINISH -->
+  <div id="finishScreen" style="display:none;">
+    <h1>🎉 Selesai</h1>
+    <p>Semua pose berhasil ditebak 😭🔥</p>
+    <p id="scoreText"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
