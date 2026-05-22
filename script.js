@@ -1,54 +1,51 @@
-// ==================== QUIZ LUCU ====================
+let pathChoice = "";
 let currentQuestion = 0;
-let totalScore = 0;
+let hearts = 3;
+let timer = 10;
+let timerInterval;
 
-const quizQuestions = [
-  {
-    question: "Kalau jadi mie instan, lu milih jadi apa?",
-    options: ["Rebus 🍜", "Goreng 🔥", "Dimakan mentah 😭", "Jadi bumbu doang 🤡"]
-  },
-  {
-    question: "Kalau tiba-tiba jadi hewan...",
-    options: ["Kucing 🐱", "Monyet 🐒", "Bebek 🦆", "Capybara 😭"]
-  },
-  {
-    question: "Superpower yang lu pilih?",
-    options: ["Ngilang 👻", "Teleport ⚡", "Baca pikiran 🧠", "Tau siapa yg makan gorengan terakhir 😭"]
-  },
-  {
-    question: "Gaya rebahan paling valid?",
-    options: ["Lurus 😐", "Miring 😎", "Tengkurep 🛌", "Kayak udang 😭"]
-  },
-  {
-    question: "Kalau ada chat 'gw mau ngomong serius'...",
-    options: ["Biasa aja", "Panik 👀", "Kabur 😭", "Overthinking 🤯"]
-  },
-  {
-    question: "Kalau disuruh milih kendaraan absurd...",
-    options: ["Sapu 🧹", "Kulkas jalan ❄️", "Kasur terbang 😭", "Becak turbo 🚀"]
-  },
-  {
-    question: "Kalau lagi gabut...",
-    options: ["Main HP 📱", "Tidur 😴", "Scroll ga jelas 😭", "Ngeliatin kipas 🤡"]
-  },
-  {
-    question: "Kalau ada gorengan terakhir...",
-    options: ["Ambil 😎", "Tanya dulu", "Pura-pura ga liat 😭", "Tarung 🤺"]
-  },
-  {
-    question: "Kalau jadi benda...",
-    options: ["Sendal 🩴", "Kulkas 🧊", "Kursi 🪑", "Remote ilang 😭"]
-  },
-  {
-    question: "Jujur ya, lu tuh orangnya...",
-    options: ["Santuy 😐", "Random 🤡", "Chaos 😭", "Absurd premium 🔥"]
-  }
-];
-
-// ==================== GAME ====================
 let currentLevel = 0;
-let gameScore = 0;
 
+// ================= QUIZ =================
+const quizQuestions = {
+  santuy: [
+    {
+      question: "Kalau ada gorengan terakhir...",
+      options: ["Ambil 😎", "Tanya dulu", "Pura-pura ga liat", "Tarung 😭"],
+      correct: 1
+    },
+    {
+      question: "Kalau jadi mie instan...",
+      options: ["Rebus 🍜", "Goreng 🔥", "Mentah 😭", "Jadi bumbu"],
+      correct: 0
+    },
+    {
+      question: "Kalau rebahan...",
+      options: ["Lurus", "Miring", "Tengkurep", "Kayak udang 😭"],
+      correct: 1
+    }
+  ],
+
+  chaos: [
+    {
+      question: "Kalau tiba-tiba jadi benda...",
+      options: ["Kulkas 🧊", "Remote ilang 😭", "Sendal", "Kasur"],
+      correct: 1
+    },
+    {
+      question: "Kalau lihat chat 'serius ya'...",
+      options: ["Biasa", "Panik", "Kabur 😭", "Overthinking"],
+      correct: 3
+    },
+    {
+      question: "Kalau lagi gabut...",
+      options: ["Main HP", "Tidur", "Ngeliatin kipas 😭", "Scroll"],
+      correct: 2
+    }
+  ]
+};
+
+// ================= GAME TEBak POSE =================
 const levels = [
   {
     photo: "fotoay.jpg.jpeg",
@@ -56,9 +53,8 @@ const levels = [
       "🧩 Berdiri tapi bukan ngantri",
       "🧩 Ada kaca di depannya",
       "🧩 Pegang HP",
-      "🧩 Ngeliat dirinya sendiri",
-      "🧩 Nyari angle terbaik",
-      "🧩 Hasilnya sering masuk story 😭"
+      "🧩 Lihat diri sendiri",
+      "🧩 Cari angle terbaik"
     ],
     options: [
       "Orang lagi foto mirror",
@@ -68,15 +64,15 @@ const levels = [
     ],
     answer: "Orang lagi foto mirror"
   },
+
   {
     photo: "fotoay2.jpeg",
     clues: [
-      "🧩 Ngadep kamera",
-      "🧩 Lagi nyengir / senyum",
-      "🧩 Ada dua jari naik ✌️",
+      "🧩 Hadap kamera",
+      "🧩 Lagi nyengir",
+      "🧩 Ada dua jari ✌️",
       "🧩 Pose santai",
-      "🧩 Kaya lagi happy 😭",
-      "🧩 Bukan minta 2 bakso"
+      "🧩 Kaya lagi happy 😭"
     ],
     options: [
       "Orang lagi pose 2 jari sambil nyengir",
@@ -88,18 +84,39 @@ const levels = [
   }
 ];
 
-// ==================== QUIZ ====================
-function startQuiz() {
+// ================= START =================
+function showPathChoice() {
   document.getElementById("startScreen").style.display = "none";
+  document.getElementById("pathScreen").style.display = "block";
+}
+
+function selectPath(path) {
+  pathChoice = path;
+  document.getElementById("pathScreen").style.display = "none";
   document.getElementById("quizScreen").style.display = "block";
   loadQuestion();
 }
 
+// ================= QUIZ =================
 function loadQuestion() {
-  const q = quizQuestions[currentQuestion];
+  const q = quizQuestions[pathChoice][currentQuestion];
+
+  timer = 10;
+  updateTimer();
+
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timer--;
+    updateTimer();
+
+    if (timer <= 0) {
+      loseHeart();
+      nextQuestion();
+    }
+  }, 1000);
 
   document.getElementById("questionNumber").innerText =
-    `Pertanyaan ${currentQuestion + 1}/10`;
+    `Pertanyaan ${currentQuestion + 1}/3`;
 
   document.getElementById("questionText").innerText =
     q.question;
@@ -116,47 +133,79 @@ function loadQuestion() {
   });
 }
 
-function selectAnswer(score) {
-  totalScore += score;
+function selectAnswer(index) {
+  clearInterval(timerInterval);
+
+  const q = quizQuestions[pathChoice][currentQuestion];
+
+  if (index !== q.correct) {
+    loseHeart();
+  }
+
+  nextQuestion();
+}
+
+function nextQuestion() {
   currentQuestion++;
 
-  if (currentQuestion < quizQuestions.length) {
+  if (hearts <= 0) {
+    gameOver();
+    return;
+  }
+
+  if (currentQuestion < 3) {
     loadQuestion();
   } else {
-    showQuizResult();
+    showRandomEvent();
   }
 }
 
-function showQuizResult() {
+// ================= HEART =================
+function loseHeart() {
+  hearts--;
+  updateHearts();
+}
+
+function updateHearts() {
+  document.getElementById("hearts").innerText =
+    "❤️".repeat(hearts);
+}
+
+function updateTimer() {
+  document.getElementById("timer").innerText =
+    `⏳ ${timer}`;
+}
+
+// ================= RANDOM EVENT =================
+function showRandomEvent() {
   document.getElementById("quizScreen").style.display = "none";
-  document.getElementById("resultScreen").style.display = "block";
+  document.getElementById("eventScreen").style.display = "block";
+}
 
-  let result = "";
+function randomEvent(choice) {
+  let msg = "";
 
-  if (totalScore <= 7) {
-    result =
-      "😐 Lu tipe NPC santuy. Hidup jalan, tapi aura kayak figuran warung.";
-  } else if (totalScore <= 14) {
-    result =
-      "🤡 Lu random. Kadang normal, kadang ngomong sama kipas.";
-  } else if (totalScore <= 21) {
-    result =
-      "😭 Lu chaos. Hidup lu penuh plot twist & keputusan absurd.";
+  if (choice === "ambil") {
+    hearts = Math.min(3, hearts + 1);
+    msg = "Kamu nemu aura absurd. +1 nyawa 😭";
+  } else if (choice === "tendang") {
+    msg = "Bendanya ternyata sandal galau 😭";
   } else {
-    result =
-      "🔥 Lu absurd premium. Bahkan remote TV takut sama lu.";
+    msg = "Kamu kabur dengan selamat 🏃";
   }
 
-  document.getElementById("resultText").innerText = result;
+  updateHearts();
+
+  document.getElementById("eventMessage").innerText = msg;
+
+  setTimeout(() => {
+    document.getElementById("eventScreen").style.display = "none";
+    document.getElementById("gameScreen").style.display = "block";
+    loadLevel();
+  }, 1800);
 }
 
-// ==================== GAME ====================
-function startGame() {
-  document.getElementById("resultScreen").style.display = "none";
-  document.getElementById("gameScreen").style.display = "block";
-  loadLevel();
-}
-
+// ================= TEBak POSE =================
 function loadLevel() {
   const level = levels[currentLevel];
 
@@ -192,21 +241,26 @@ function checkAnswer(selected) {
   const level = levels[currentLevel];
 
   if (selected === level.answer) {
-    gameScore++;
+    const photo = document.getElementById("photo");
+    photo.src = level.photo;
+    photo.classList.remove("clear-photo");
 
-    document.getElementById("message").innerText =
-      "🎉 BENERRR 😭🔥";
-
-    document.getElementById("photo").src = level.photo;
     document.getElementById("photoBox").style.display = "block";
+    document.getElementById("message").innerText =
+      "🎉 Benarrr 😭🔥";
+
+    setTimeout(() => {
+      photo.classList.add("clear-photo");
+    }, 500);
 
     if (currentLevel === levels.length - 1) {
       document.getElementById("nextBtn").innerText =
-        "Selesai 😭";
+        "Final Boss 👹";
     }
+
   } else {
     document.getElementById("message").innerText =
-      "Salah bos 😭 coba lagi";
+      "Salah 😭 coba lagi";
   }
 }
 
@@ -216,9 +270,63 @@ function nextLevel() {
   if (currentLevel < levels.length) {
     loadLevel();
   } else {
-    document.getElementById("gameScreen").style.display = "none";
-    document.getElementById("finishScreen").style.display = "block";
-    document.getElementById("scoreText").innerText =
-      `Score lu: ${gameScore}/2 🔥`;
+    showBoss();
   }
+}
+
+// ================= BOSS =================
+function showBoss() {
+  document.getElementById("gameScreen").style.display = "none";
+  document.getElementById("bossScreen").style.display = "block";
+
+  const bossOptions = [
+    "NPC warung",
+    "Makhluk absurd premium",
+    "Kulkas capek",
+    "Sendal insecure"
+  ];
+
+  const div = document.getElementById("bossOptions");
+  div.innerHTML = "";
+
+  bossOptions.forEach(option => {
+    div.innerHTML += `
+      <button class="option-btn" onclick="checkBoss('${option}')">
+        ${option}
+      </button>
+    `;
+  });
+}
+
+function checkBoss(choice) {
+  if (choice === "Makhluk absurd premium") {
+    finishGame();
+  } else {
+    document.getElementById("bossMessage").innerText =
+      "Boss tertawa 😭 coba lagi";
+  }
+}
+
+// ================= FINISH =================
+function finishGame() {
+  document.getElementById("bossScreen").style.display = "none";
+  document.getElementById("finishScreen").style.display = "block";
+
+  let achievement = "";
+
+  if (hearts === 3) {
+    achievement = "🔥 ABSURD LORD";
+  } else if (hearts === 2) {
+    achievement = "😎 Makhluk Santuy";
+  } else {
+    achievement = "😭 Chaos Survivor";
+  }
+
+  document.getElementById("achievementText").innerText =
+    achievement;
+}
+
+function gameOver() {
+  alert("💀 Game Over — Dunia absurd menang 😭");
+  location.reload();
 }
