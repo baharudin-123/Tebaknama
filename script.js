@@ -1,47 +1,47 @@
-// ==================== QUIZ ====================
+// ==================== QUIZ LUCU ====================
 let currentQuestion = 0;
 let totalScore = 0;
 
 const quizQuestions = [
   {
-    question: "Kalau si B tiba-tiba chat...",
-    options: ["Biasa aja 😐", "Penasaran 👀", "Seneng 😭", "Deg-degan 😳"]
+    question: "Kalau jadi mie instan, lu milih jadi apa?",
+    options: ["Rebus 🍜", "Goreng 🔥", "Dimakan mentah 😭", "Jadi bumbu doang 🤡"]
   },
   {
-    question: "Kalau liat notif dari si B...",
-    options: ["Nanti aja buka", "Langsung buka", "Pura-pura santai 😭", "Senyum sendiri 😳"]
+    question: "Kalau tiba-tiba jadi hewan...",
+    options: ["Kucing 🐱", "Monyet 🐒", "Bebek 🦆", "Capybara 😭"]
   },
   {
-    question: "Kalau si B ga chat seharian...",
-    options: ["Ga peduli", "Kepikiran dikit", "Nungguin", "Cek HP terus 😭"]
+    question: "Superpower yang lu pilih?",
+    options: ["Ngilang 👻", "Teleport ⚡", "Baca pikiran 🧠", "Tau siapa yg makan gorengan terakhir 😭"]
   },
   {
-    question: "Kalau si B upload foto baru...",
-    options: ["Scroll lewat", "Liat bentar", "Zoom dikit 👀", "Stalking 😭"]
+    question: "Gaya rebahan paling valid?",
+    options: ["Lurus 😐", "Miring 😎", "Tengkurep 🛌", "Kayak udang 😭"]
   },
   {
-    question: "Kalau si B deket sama orang lain...",
-    options: ["Biasa aja", "Agak aneh", "Kesel dikit", "Cemburu 😭"]
+    question: "Kalau ada chat 'gw mau ngomong serius'...",
+    options: ["Biasa aja", "Panik 👀", "Kabur 😭", "Overthinking 🤯"]
   },
   {
-    question: "Kalau nama si B disebut...",
-    options: ["Biasa", "Reflek nengok", "Jadi perhatian", "Senyum sendiri 😭"]
-  },
-  {
-    question: "Kalau si B ngajak ketemu...",
-    options: ["Males", "Yaudah", "Seneng", "Excited 😭"]
+    question: "Kalau disuruh milih kendaraan absurd...",
+    options: ["Sapu 🧹", "Kulkas jalan ❄️", "Kasur terbang 😭", "Becak turbo 🚀"]
   },
   {
     question: "Kalau lagi gabut...",
-    options: ["Main HP", "Rebahan", "Scroll medsos", "Kepikiran si B 😳"]
+    options: ["Main HP 📱", "Tidur 😴", "Scroll ga jelas 😭", "Ngeliatin kipas 🤡"]
   },
   {
-    question: "Kalau chat dari si B lama dibales...",
-    options: ["Yaudah", "Nunggu", "Cek lagi", "Overthinking 😭"]
+    question: "Kalau ada gorengan terakhir...",
+    options: ["Ambil 😎", "Tanya dulu", "Pura-pura ga liat 😭", "Tarung 🤺"]
   },
   {
-    question: "Kalau disuruh jujur...",
-    options: ["Biasa aja", "Ada rasa penasaran", "Nyaman banget", "Waduh... ada rasa 😭🔥"]
+    question: "Kalau jadi benda...",
+    options: ["Sendal 🩴", "Kulkas 🧊", "Kursi 🪑", "Remote ilang 😭"]
+  },
+  {
+    question: "Jujur ya, lu tuh orangnya...",
+    options: ["Santuy 😐", "Random 🤡", "Chaos 😭", "Absurd premium 🔥"]
   }
 ];
 
@@ -88,14 +88,13 @@ const levels = [
   }
 ];
 
-// ==================== START QUIZ ====================
+// ==================== QUIZ ====================
 function startQuiz() {
   document.getElementById("startScreen").style.display = "none";
   document.getElementById("quizScreen").style.display = "block";
   loadQuestion();
 }
 
-// ==================== LOAD QUESTION ====================
 function loadQuestion() {
   const q = quizQuestions[currentQuestion];
 
@@ -117,7 +116,6 @@ function loadQuestion() {
   });
 }
 
-// ==================== QUIZ ANSWER ====================
 function selectAnswer(score) {
   totalScore += score;
   currentQuestion++;
@@ -129,7 +127,6 @@ function selectAnswer(score) {
   }
 }
 
-// ==================== SHOW QUIZ RESULT ====================
 function showQuizResult() {
   document.getElementById("quizScreen").style.display = "none";
   document.getElementById("resultScreen").style.display = "block";
@@ -138,29 +135,28 @@ function showQuizResult() {
 
   if (totalScore <= 7) {
     result =
-      "😐 Kayaknya perasaan lu ke si B masih santai & biasa aja.";
+      "😐 Lu tipe NPC santuy. Hidup jalan, tapi aura kayak figuran warung.";
   } else if (totalScore <= 14) {
     result =
-      "👀 Ada perhatian & rasa penasaran ke si B.";
+      "🤡 Lu random. Kadang normal, kadang ngomong sama kipas.";
   } else if (totalScore <= 21) {
     result =
-      "😭 Wah... keliatan ada rasa nyaman & lumayan kepikiran si B.";
+      "😭 Lu chaos. Hidup lu penuh plot twist & keputusan absurd.";
   } else {
     result =
-      "😳 Bahaya... kayaknya ada rasa spesial ke si B 😭🔥";
+      "🔥 Lu absurd premium. Bahkan remote TV takut sama lu.";
   }
 
   document.getElementById("resultText").innerText = result;
 }
 
-// ==================== START GAME ====================
+// ==================== GAME ====================
 function startGame() {
   document.getElementById("resultScreen").style.display = "none";
   document.getElementById("gameScreen").style.display = "block";
   loadLevel();
 }
 
-// ==================== LOAD LEVEL ====================
 function loadLevel() {
   const level = levels[currentLevel];
 
@@ -192,7 +188,6 @@ function loadLevel() {
   document.getElementById("photoBox").style.display = "none";
 }
 
-// ==================== CHECK ANSWER ====================
 function checkAnswer(selected) {
   const level = levels[currentLevel];
 
@@ -202,11 +197,8 @@ function checkAnswer(selected) {
     document.getElementById("message").innerText =
       "🎉 BENERRR 😭🔥";
 
-    document.getElementById("photo").src =
-      level.photo;
-
-    document.getElementById("photoBox").style.display =
-      "block";
+    document.getElementById("photo").src = level.photo;
+    document.getElementById("photoBox").style.display = "block";
 
     if (currentLevel === levels.length - 1) {
       document.getElementById("nextBtn").innerText =
@@ -218,19 +210,14 @@ function checkAnswer(selected) {
   }
 }
 
-// ==================== NEXT LEVEL ====================
 function nextLevel() {
   currentLevel++;
 
   if (currentLevel < levels.length) {
     loadLevel();
   } else {
-    document.getElementById("gameScreen").style.display =
-      "none";
-
-    document.getElementById("finishScreen").style.display =
-      "block";
-
+    document.getElementById("gameScreen").style.display = "none";
+    document.getElementById("finishScreen").style.display = "block";
     document.getElementById("scoreText").innerText =
       `Score lu: ${gameScore}/2 🔥`;
   }
