@@ -1,3 +1,15 @@
+const secretPassword = "ayra123";
+function checkPassword() {
+  const input =
+    document.getElementById("passwordInput").value.trim();
+
+  if (input === secretPassword) {
+    startGame();
+  } else {
+    document.getElementById("passwordMessage").innerText =
+      "❌ Password salah 😭";
+  }
+}
 let currentQuestion = 0;
 
 const photos = [
