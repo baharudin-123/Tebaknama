@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tebak Makhluk CULUNGG !! 😭</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🤨 Siapa Makhluk Ini?</h1>
+
+    <div class="clues">
+      <p>🧩 Suka gajelas tiba-tiba.</p>
+      <p>🧩 Kadang ngeselin, tapi lucuu.</p>
+      <p>🧩 Kalau ngomong suka nyebut kecoa.</p>
+      <p>🧩 Suka Ketiduran padahal lagi ngobroll 😭</p>
+    </div>
+
+    <input type="text" id="answer" placeholder="Masukin jawaban...">
+    <button onclick="checkAnswer()">Tebak Sekarang 😭</button>
+
+    <p id="message"></p>
+    <p id="tries">Percobaan: 0</p>
+
+    <div id="result" style="display:none;">
+      <h2>🎉 Bener! Makhluk ditemukan 😂</h2>
+      <img id="friendPhoto" src="fotoay.jpg" alt="Teman">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
