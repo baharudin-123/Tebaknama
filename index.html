@@ -3,83 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ABSURD QUEST 😭🔥</title>
+  <title>🔐 Open The Secret Photo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-  <!-- START -->
+  <!-- START SCREEN -->
   <div id="startScreen">
-    <h1>🎮 ABSURD QUEST</h1>
-    <p>Kamu tersesat di dunia absurd.<br>Untuk keluar, kamu harus melewati tantangan aneh 😭</p>
-    <button onclick="showPathChoice()">Mulai Petualangan</button>
+    <h1>🔐 Open The Secret Photo</h1>
+    <p>
+      Jawab <b>15 soal</b> dengan benar untuk membuka semua foto 😭🔥
+    </p>
+    <p>
+      Setiap <b>5 soal benar</b> = 1 foto terbuka
+    </p>
+    <p class="warning">
+      ❌ Salah 1 soal = Game diulang
+    </p>
+
+    <button onclick="startGame()">Mulai Game 🚀</button>
   </div>
 
-  <!-- PILIH JALAN -->
-  <div id="pathScreen" style="display:none;">
-    <h2>Pilih Jalan</h2>
-    <p>Jalan mana yang ingin kamu pilih?</p>
-    <button onclick="selectPath('santuy')">🟪 Jalan Santuy 😎</button>
-    <button onclick="selectPath('chaos')">🟥 Jalan Chaos 🤡</button>
-  </div>
-
-  <!-- QUIZ -->
-  <div id="quizScreen" style="display:none;">
-    <div class="top-bar">
-      <div id="hearts">❤️❤️❤️</div>
-      <div id="timer">⏳ 10</div>
-    </div>
-
-    <h2 id="questionNumber"></h2>
-    <p id="questionText"></p>
-    <div id="options"></div>
-  </div>
-
-  <!-- RANDOM EVENT -->
-  <div id="eventScreen" style="display:none;">
-    <h2>🎲 Random Event</h2>
-    <p>Kamu menemukan benda aneh...</p>
-    <button onclick="randomEvent('ambil')">Ambil 👀</button>
-    <button onclick="randomEvent('tendang')">Tendang 😭</button>
-    <button onclick="randomEvent('kabur')">Kabur 🏃</button>
-    <p id="eventMessage"></p>
-  </div>
-
-  <!-- GAME TEBak POSE -->
+  <!-- GAME SCREEN -->
   <div id="gameScreen" style="display:none;">
-    <h2 id="levelText"></h2>
+
+    <!-- PROGRESS -->
+    <div class="top-bar">
+      <span id="questionCounter">Soal 1/15</span>
+      <span id="photoCounter">Foto 0/3</span>
+    </div>
 
     <div class="progress-bar">
       <div id="progress"></div>
     </div>
 
-    <div id="clues"></div>
-    <div id="gameOptions"></div>
+    <!-- QUESTION -->
+    <h2 id="questionText"></h2>
 
+    <!-- OPTIONS -->
+    <div id="options"></div>
+
+    <!-- MESSAGE -->
     <p id="message"></p>
 
-    <div id="photoBox" style="display:none;">
-      <img id="photo" src="" alt="foto">
-      <br>
-      <button id="nextBtn" onclick="nextLevel()">Lanjut 😈</button>
+  </div>
+
+  <!-- PHOTO UNLOCK -->
+  <div id="photoScreen" style="display:none;">
+    <h1>🔓 Foto Terbuka!</h1>
+
+    <img id="unlockedPhoto" src="" alt="foto">
+
+    <p>Selamat, kamu berhasil membuka foto 😭🔥</p>
+
+    <button onclick="continueGame()">Lanjut ➜</button>
+  </div>
+
+  <!-- FAIL -->
+  <div id="failScreen" style="display:none;">
+    <h1>❌ Anda gagal membuka foto</h1>
+    <p>Jawaban salah. Game akan diulang 😭</p>
+
+    <button onclick="restartGame()">Coba Lagi 🔄</button>
+  </div>
+
+  <!-- WIN -->
+  <div id="winScreen" style="display:none;">
+    <h1>🎉 Semua Foto Terbuka!</h1>
+
+    <div class="final-photos">
+      <img src="fotoay.jpg.jpeg" alt="foto1">
+      <img src="fotoay2.jpeg" alt="foto2">
+      <img src="fotoay3.jpeg" alt="foto3">
     </div>
-  </div>
 
-  <!-- FINAL BOSS -->
-  <div id="bossScreen" style="display:none;">
-    <h1>👹 FINAL BOSS</h1>
-    <p>Tebak makhluk final...</p>
-    <div id="bossOptions"></div>
-    <p id="bossMessage"></p>
-  </div>
+    <p>Kamu berhasil membuka semua rahasia 😭🔥</p>
 
-  <!-- FINISH -->
-  <div id="finishScreen" style="display:none;">
-    <h1>🏆 Mission Complete</h1>
-    <p id="achievementText"></p>
-    <p>Kamu berhasil keluar dari dunia absurd 😭🔥</p>
+    <button onclick="restartGame()">Main Lagi 🚀</button>
   </div>
 
 </div>

@@ -1,122 +1,113 @@
-let pathChoice = "";
 let currentQuestion = 0;
-let hearts = 3;
-let timer = 10;
-let timerInterval;
 
-let currentLevel = 0;
+const photos = [
+  "fotoay.jpg.jpeg",
+  "fotoay2.jpeg",
+  "fotoay3.jpeg"
+];
 
-// ================= QUIZ =================
-const quizQuestions = {
-  santuy: [
-    {
-      question: "Kalau ada gorengan terakhir...",
-      options: ["Ambil 😎", "Tanya dulu", "Pura-pura ga liat", "Tarung 😭"],
-      correct: 1
-    },
-    {
-      question: "Kalau jadi mie instan...",
-      options: ["Rebus 🍜", "Goreng 🔥", "Mentah 😭", "Jadi bumbu"],
-      correct: 0
-    },
-    {
-      question: "Kalau rebahan...",
-      options: ["Lurus", "Miring", "Tengkurep", "Kayak udang 😭"],
-      correct: 1
-    }
-  ],
-
-  chaos: [
-    {
-      question: "Kalau tiba-tiba jadi benda...",
-      options: ["Kulkas 🧊", "Remote ilang 😭", "Sendal", "Kasur"],
-      correct: 1
-    },
-    {
-      question: "Kalau lihat chat 'serius ya'...",
-      options: ["Biasa", "Panik", "Kabur 😭", "Overthinking"],
-      correct: 3
-    },
-    {
-      question: "Kalau lagi gabut...",
-      options: ["Main HP", "Tidur", "Ngeliatin kipas 😭", "Scroll"],
-      correct: 2
-    }
-  ]
-};
-
-// ================= GAME TEBak POSE =================
-const levels = [
+const questions = [
+  // ===== FOTO 1 =====
   {
-    photo: "fotoay.jpg.jpeg",
-    clues: [
-      "🧩 Berdiri tapi bukan ngantri",
-      "🧩 Ada kaca di depannya",
-      "🧩 Pegang HP",
-      "🧩 Lihat diri sendiri",
-      "🧩 Cari angle terbaik"
-    ],
-    options: [
-      "Orang lagi foto mirror",
-      "Orang lagi marahin kaca",
-      "Orang lagi nyari jin",
-      "Orang lagi jual parfum"
-    ],
-    answer: "Orang lagi foto mirror"
+    question: "12 + 8 = ?",
+    options: ["20", "18", "22", "21"],
+    correct: 0
+  },
+  {
+    question: "Planet terbesar di tata surya?",
+    options: ["Mars", "Jupiter", "Venus", "Saturnus"],
+    correct: 1
+  },
+  {
+    question: "5 x 6 = ?",
+    options: ["30", "25", "35", "28"],
+    correct: 0
+  },
+  {
+    question: "Ibu kota Jepang?",
+    options: ["Kyoto", "Osaka", "Tokyo", "Seoul"],
+    correct: 2
+  },
+  {
+    question: "100 ÷ 4 = ?",
+    options: ["25", "20", "30", "15"],
+    correct: 0
   },
 
+  // ===== FOTO 2 =====
   {
-    photo: "fotoay2.jpeg",
-    clues: [
-      "🧩 Hadap kamera",
-      "🧩 Lagi nyengir",
-      "🧩 Ada dua jari ✌️",
-      "🧩 Pose santai",
-      "🧩 Kaya lagi happy 😭"
-    ],
-    options: [
-      "Orang lagi pose 2 jari sambil nyengir",
-      "Orang lagi minta 2 bakso",
-      "Orang lagi nunjuk jalan",
-      "Orang lagi ngancem kipas"
-    ],
-    answer: "Orang lagi pose 2 jari sambil nyengir"
+    question: "9² = ?",
+    options: ["72", "81", "99", "90"],
+    correct: 1
+  },
+  {
+    question: "Laut terbesar di dunia?",
+    options: ["Laut Jawa", "Laut Mediterania", "Samudra Pasifik", "Atlantik"],
+    correct: 2
+  },
+  {
+    question: "45 + 15 = ?",
+    options: ["55", "60", "65", "70"],
+    correct: 1
+  },
+  {
+    question: "Hewan tercepat di darat?",
+    options: ["Kuda", "Singa", "Cheetah", "Harimau"],
+    correct: 2
+  },
+  {
+    question: "7 x 8 = ?",
+    options: ["54", "56", "58", "64"],
+    correct: 1
+  },
+
+  // ===== FOTO 3 =====
+  {
+    question: "Jika semua kucing adalah hewan, apakah semua hewan kucing?",
+    options: ["Ya", "Tidak", "Kadang", "Bisa jadi"],
+    correct: 1
+  },
+  {
+    question: "50 ÷ 5 = ?",
+    options: ["5", "8", "10", "15"],
+    correct: 2
+  },
+  {
+    question: "Benua terbesar?",
+    options: ["Afrika", "Eropa", "Asia", "Australia"],
+    correct: 2
+  },
+  {
+    question: "3 + 7 x 2 = ?",
+    options: ["20", "17", "14", "10"],
+    correct: 1
+  },
+  {
+    question: "Kalau hari ini Senin, 2 hari lagi hari apa?",
+    options: ["Selasa", "Rabu", "Kamis", "Jumat"],
+    correct: 1
   }
 ];
 
 // ================= START =================
-function showPathChoice() {
+function startGame() {
   document.getElementById("startScreen").style.display = "none";
-  document.getElementById("pathScreen").style.display = "block";
-}
-
-function selectPath(path) {
-  pathChoice = path;
-  document.getElementById("pathScreen").style.display = "none";
-  document.getElementById("quizScreen").style.display = "block";
+  document.getElementById("gameScreen").style.display = "block";
   loadQuestion();
 }
 
-// ================= QUIZ =================
+// ================= LOAD QUESTION =================
 function loadQuestion() {
-  const q = quizQuestions[pathChoice][currentQuestion];
+  const q = questions[currentQuestion];
 
-  timer = 10;
-  updateTimer();
+  document.getElementById("questionCounter").innerText =
+    `Soal ${currentQuestion + 1}/15`;
 
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    timer--;
-    updateTimer();
+  document.getElementById("photoCounter").innerText =
+    `Foto ${Math.floor(currentQuestion / 5)}/3`;
 
-    if (timer <= 0) {
-      loseHeart();
-      nextQuestion();
-    }
-  }, 1000);
-
-  document.getElementById("questionNumber").innerText =
-    `Pertanyaan ${currentQuestion + 1}/3`;
+  document.getElementById("progress").style.width =
+    ((currentQuestion) / questions.length) * 100 + "%";
 
   document.getElementById("questionText").innerText =
     q.question;
@@ -126,207 +117,76 @@ function loadQuestion() {
 
   q.options.forEach((option, index) => {
     optionsDiv.innerHTML += `
-      <button class="option-btn" onclick="selectAnswer(${index})">
-        ${option}
-      </button>
-    `;
-  });
-}
-
-function selectAnswer(index) {
-  clearInterval(timerInterval);
-
-  const q = quizQuestions[pathChoice][currentQuestion];
-
-  if (index !== q.correct) {
-    loseHeart();
-  }
-
-  nextQuestion();
-}
-
-function nextQuestion() {
-  currentQuestion++;
-
-  if (hearts <= 0) {
-    gameOver();
-    return;
-  }
-
-  if (currentQuestion < 3) {
-    loadQuestion();
-  } else {
-    showRandomEvent();
-  }
-}
-
-// ================= HEART =================
-function loseHeart() {
-  hearts--;
-  updateHearts();
-}
-
-function updateHearts() {
-  document.getElementById("hearts").innerText =
-    "❤️".repeat(hearts);
-}
-
-function updateTimer() {
-  document.getElementById("timer").innerText =
-    `⏳ ${timer}`;
-}
-
-// ================= RANDOM EVENT =================
-function showRandomEvent() {
-  document.getElementById("quizScreen").style.display = "none";
-  document.getElementById("eventScreen").style.display = "block";
-}
-
-function randomEvent(choice) {
-  let msg = "";
-
-  if (choice === "ambil") {
-    hearts = Math.min(3, hearts + 1);
-    msg = "Kamu nemu aura absurd. +1 nyawa 😭";
-  } else if (choice === "tendang") {
-    msg = "Bendanya ternyata sandal galau 😭";
-  } else {
-    msg = "Kamu kabur dengan selamat 🏃";
-  }
-
-  updateHearts();
-
-  document.getElementById("eventMessage").innerText = msg;
-
-  setTimeout(() => {
-    document.getElementById("eventScreen").style.display = "none";
-    document.getElementById("gameScreen").style.display = "block";
-    loadLevel();
-  }, 1800);
-}
-
-// ================= TEBak POSE =================
-function loadLevel() {
-  const level = levels[currentLevel];
-
-  document.getElementById("levelText").innerText =
-    `Level ${currentLevel + 1}/2`;
-
-  document.getElementById("progress").style.width =
-    ((currentLevel) / levels.length) * 100 + "%";
-
-  const cluesDiv = document.getElementById("clues");
-  cluesDiv.innerHTML = "";
-
-  level.clues.forEach(clue => {
-    cluesDiv.innerHTML += `<p>${clue}</p>`;
-  });
-
-  const optionsDiv = document.getElementById("gameOptions");
-  optionsDiv.innerHTML = "";
-
-  level.options.forEach(option => {
-    optionsDiv.innerHTML += `
-      <button class="option-btn" onclick="checkAnswer('${option}')">
+      <button class="option-btn" onclick="checkAnswer(${index})">
         ${option}
       </button>
     `;
   });
 
   document.getElementById("message").innerText = "";
-  document.getElementById("photoBox").style.display = "none";
 }
 
+// ================= CHECK ANSWER =================
 function checkAnswer(selected) {
-  const level = levels[currentLevel];
+  const q = questions[currentQuestion];
 
-  if (selected === level.answer) {
-    const photo = document.getElementById("photo");
-    photo.src = level.photo;
-    photo.classList.remove("clear-photo");
+  if (selected !== q.correct) {
+    failGame();
+    return;
+  }
 
-    document.getElementById("photoBox").style.display = "block";
-    document.getElementById("message").innerText =
-      "🎉 Benarrr 😭🔥";
+  currentQuestion++;
 
-    setTimeout(() => {
-      photo.classList.add("clear-photo");
-    }, 500);
-
-    if (currentLevel === levels.length - 1) {
-      document.getElementById("nextBtn").innerText =
-        "Final Boss 👹";
-    }
-
+  // unlock tiap 5 soal
+  if (currentQuestion === 5 || currentQuestion === 10 || currentQuestion === 15) {
+    unlockPhoto();
   } else {
-    document.getElementById("message").innerText =
-      "Salah 😭 coba lagi";
+    loadQuestion();
   }
 }
 
-function nextLevel() {
-  currentLevel++;
-
-  if (currentLevel < levels.length) {
-    loadLevel();
-  } else {
-    showBoss();
-  }
-}
-
-// ================= BOSS =================
-function showBoss() {
+// ================= UNLOCK FOTO =================
+function unlockPhoto() {
   document.getElementById("gameScreen").style.display = "none";
-  document.getElementById("bossScreen").style.display = "block";
+  document.getElementById("photoScreen").style.display = "block";
 
-  const bossOptions = [
-    "NPC warung",
-    "Makhluk absurd premium",
-    "Kulkas capek",
-    "Sendal insecure"
-  ];
+  const photoIndex = (currentQuestion / 5) - 1;
 
-  const div = document.getElementById("bossOptions");
-  div.innerHTML = "";
+  const photo = document.getElementById("unlockedPhoto");
+  photo.src = photos[photoIndex];
+  photo.classList.remove("clear-photo");
 
-  bossOptions.forEach(option => {
-    div.innerHTML += `
-      <button class="option-btn" onclick="checkBoss('${option}')">
-        ${option}
-      </button>
-    `;
-  });
+  setTimeout(() => {
+    photo.classList.add("clear-photo");
+  }, 500);
 }
 
-function checkBoss(choice) {
-  if (choice === "Makhluk absurd premium") {
-    finishGame();
-  } else {
-    document.getElementById("bossMessage").innerText =
-      "Boss tertawa 😭 coba lagi";
-  }
-}
+// ================= LANJUT =================
+function continueGame() {
+  document.getElementById("photoScreen").style.display = "none";
 
-// ================= FINISH =================
-function finishGame() {
-  document.getElementById("bossScreen").style.display = "none";
-  document.getElementById("finishScreen").style.display = "block";
-
-  let achievement = "";
-
-  if (hearts === 3) {
-    achievement = "🔥 ABSURD LORD";
-  } else if (hearts === 2) {
-    achievement = "😎 Makhluk Santuy";
-  } else {
-    achievement = "😭 Chaos Survivor";
+  if (currentQuestion >= questions.length) {
+    winGame();
+    return;
   }
 
-  document.getElementById("achievementText").innerText =
-    achievement;
+  document.getElementById("gameScreen").style.display = "block";
+  loadQuestion();
 }
 
-function gameOver() {
-  alert("💀 Game Over — Dunia absurd menang 😭");
+// ================= FAIL =================
+function failGame() {
+  document.getElementById("gameScreen").style.display = "none";
+  document.getElementById("failScreen").style.display = "block";
+}
+
+// ================= WIN =================
+function winGame() {
+  document.getElementById("photoScreen").style.display = "none";
+  document.getElementById("winScreen").style.display = "block";
+}
+
+// ================= RESET =================
+function restartGame() {
   location.reload();
 }
