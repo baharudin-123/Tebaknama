@@ -1,7 +1,7 @@
 let tries = 0;
 
 // GANTI JAWABAN BENER DI SINI
-const correctAnswers = ["culung", "ayra"];
+const correctAnswers = ["mirror selfie", "selfie mirror", "foto mirror"];
 
 const trollMessages = [
   "Salah wlee 😭 coba lagi",
