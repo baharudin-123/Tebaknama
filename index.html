@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-<div id="startScreen">
-  <h1>🔐 Open The Secret Photo</h1>
-  <p>Masukkan password untuk masuk ke game 😭🔥</p>
-
-  <input
-    type="password"
-    id="passwordInput"
-    placeholder="Masukkan password..."
-  />
-
-  <button onclick="checkPassword()">Masuk 🚀</button>
-
-  <p id="passwordMessage"></p>
-</div>
-
+  
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,18 +13,21 @@
 
   <!-- START SCREEN -->
   <div id="startScreen">
-    <h1>🔐 Open The Secret Photo</h1>
-    <p>
-      Jawab <b>15 soal</b> dengan benar untuk membuka semua foto 😭🔥
-    </p>
-    <p>
-      Setiap <b>5 soal benar</b> = 1 foto terbuka
-    </p>
-    <p class="warning">
-      ❌ Salah 1 soal = Game diulang
-    </p>
+    input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
 
-    <button onclick="startGame()">Mulai Game 🚀</button>
+#passwordMessage {
+  margin-top: 10px;
+  font-weight: bold;
+  color: red;
+}
   </div>
 
   <!-- GAME SCREEN -->
